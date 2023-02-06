@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href='../app0/style.css' type='css'/>
+  <!-- link css/a use href , script/img use src-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" async></script>
+  <style>
+        :root{
+    --transition: all 0.3s linear;
+    --color1:red; }
+    .head{
+      display:flex;/*change during window resize*/
+      justify-content:space-evenly;/*horizontallly*/
+      align-items: center;/*vertical, default value is stretch, flex-wrap:wrap to wrap vertically*/
+      position:fixed;/*for nav bar,body need to add padding*/
+	    left:0 ;right:0;top:0;height:50px; margin:15px;
+      background-color: cadetblue ;}
+    .cc{display: flex;width: 200px;margin:10px;justify-content: center;}
+    .search{flex:1;font-size: 15px;width: 0;} 
+    /* used in children of display:flex, over-ride justifty and take entire row, flex:2 will be 2x as long as flex:1, if flex shrink:0 it wont shrink, width:0 to force search bar to shrink*/
+    .show{cursor:pointer; height:0;
+      overflow: hidden;transition: var(--transition)}
+    body{ padding-top:80px;  padding-left:80px; }/* default margin is 8px */
+    .b1{font-size: 15px; box-shadow: 1px 2px 2px 0px #000000; }
+    .sidebar{ display: flex;left:0;width: 80px;top:100px;position:fixed;flex-direction: column;height:200px;
+      justify-content:space-between;align-items: center;}
+    .stat{width: 20px;height: 20px; border-radius:50%;background:linear-gradient(rgb(215, 47, 47),rgb(44, 44, 252))}
+    .container{display: flex;flex-direction: column;align-items: center;font-size: 30px;}
+   .sizeref{width: 150px;position: fixed;transition:color .5s;cursor:pointer;}
+   .sizeref:hover{color:rgb(234, 99, 99)}
+  h4 {background-color: rgb(210, 181, 231); 
+  border-right: 25px solid rgb(31, 105, 22); box-shadow: 0 1px 3px rgb(2, 2, 2) ;
+  border-radius: 5px;}/*border "soid" is important*/
+   h1{height: 5rem; display:block}
+    /* block(entire line,next iteme is below.eg<p><div>),inlineblock(spaceonly nassasary,next item is on the right.eg<img><input>),inline(only a section of txt<span>) */
+   img{height:200px;width:300px;object-fit:contain }  /* to fit inside, or :cover; object-position:right.. etc */
+
+  </style>
+  <title>0202noon</title>
+</head>
+<body>
+  <header> 
+    
+    <nav>
+      <div class="head">
+        <div class="cc"><button class="b1">1st row 1st</button> </div>
+        <div class="cc"> <input class="search" type="text" placeholder="searching words"><button class="b1">enter</button> </div>
+     
+        <div class="cc"><button class="b1">1st row 3rd</button> </div>
+      </div>
+    </nav>
+  
+  </header>
+  <main>
+    <aside>
+      <div class="sidebar">
+        <div class="stat"></div>
+        <div class="stat"></div>
+        <div class="stat"></div>
+      </div>
+    </aside>
+    <div class="sizeref">
+      <h1 class="show">h1 size</h1>
+      <h4>h2 size</h2>
+      <h4>h4 size</h4>
+      <h4>h6 size</h6>
+      <p></p></div>
+    <div class="container">
+      counter
+      <span id="value">0</span>
+      <div class="buttonContainer">
+        <button class="but decrease">decrease</button>
+        <button class="but reset">reset</button>
+        <button class="but increase">increase</button>
+      </div> 
+      <img src="https://rb.gy/ca8odt" alt="description" 
+      height="48" width="100" longdesc="desc.txt" />
+    </div>
+  </main>
+<footer>
+<address>Contact <a href="mailto:me@htmlg.com">me</a> </address>
+<a href="#footer">Jump to footnote</a> 
+<a name="footer"></a>Footnote content
+</footer>
+
+  <script>
+let pp=document.querySelector('p')
+let ul= 'https://catfact.ninja/fact';
+//let fd= async()=>{await fetch(ul).then(res=>res.json()).then(console.log)}
+//pp.textContent=fb;
+    let count=0;
+let num=document.querySelector('#value')
+let x=document.querySelectorAll('.but');
+x.forEach((i)=>{ i.addEventListener('click', e=>{
+  let y=e.target.classList;//!target is for classlist of button
+  if(y.contains('decrease')) count--;
+  else if(y.contains('increase'))count++
+  else count=0;
+  if(count>0)num.style.color='green';
+  else if(count<0)num.style.color='red';
+  else num.style.color='black';
+  num.textContent=count;}) });
+let x2=document.querySelector('.reset');
+console.log(x2);//version 1.2
+x2.addEventListener('click',()=>{
+let x3=document.querySelector('h1');x3.classList.toggle('show')})
+console.log('oldest');
+  </script>
+  <script src=""></script>
+</body>
+</html>

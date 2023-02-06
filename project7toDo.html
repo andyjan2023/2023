@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <title>My Todo App</title>
+  </head>
+  <body>
+    <input id="title" type="text" />
+    <input id="picker" type="date" />
+    <button onclick="add()">Add</button>
+    <div id="list"></div>  <!-- render everything in this div -->
+    <script>
+//Model, only manage data
+let cur;
+let prev = JSON.parse(localStorage.getItem('cur'));
+if (prev) cur = prev; else cur=[{title:'Getgroceries',dueDate:'2021-10-04',id:'id1'},{title:'Washcar',dueDate:'2021-02-03',id:'id2'},{title:'Makedinner',dueDate:'2021-03-04',id:'id3'}];
+let plus = (x, y) => {
+        let z =  new Date().getTime();
+        cur.push({  title: x, dueDate: y, id: z });
+        sav() }
+let minus = x => {
+       cur=cur.filter(i=> i.id!=x )//!x.filter doesnt change x, need x=x.filter!!/!also != is needed bc element id is a string
+        sav();  }
+function setEditing(x) {
+        cur.forEach( i=> {
+          if (i.id == x)   i.isEditing = true;   });
+        sav(); }
+function updateTodo(todoId, newTitle, newDate) {
+        cur.forEach( i=> {
+          if( i.id == todoId) {//! be careful!!
+          i.title = newTitle; i.dueDate = newDate;  i.isEditing = false;     }  });
+        sav();   }
+let sav = () => localStorage.setItem('cur', JSON.stringify(cur));
+
+// Controller, only button click
+let add = () => {
+        const textbox = document.getElementById('title');
+        const title = textbox.value;
+        const datePicker = document.getElementById('picker');  
+        const dueDate = datePicker.value;
+        plus(title, dueDate);//!save into JSON,
+        render()};//! update
+let delet = i => {
+        const deleteButton = i.target;//!element that triggered the event
+        const idToDelete = deleteButton.id;
+        minus(idToDelete);//!delete the JSON file
+        render();}//!update
+function onEdit(i) {
+        const editButton = i.target;
+        const z = editButton.dataset.todoId;
+        setEditing(z);
+        render();   }
+function onUpdate(i) {
+        const updateButton = i.target
+        const z = updateButton.dataset.todoId;
+        const textbox = document.getElementById('edit-title-' + z);
+        const x = textbox.value;
+        const datePicker = document.getElementById('edit-date-' + z);
+        const y = datePicker.value;
+        updateTodo(z,x,y);//! order is important1!!
+        render(); }
+// View
+let render = () => {
+  let List = document.getElementById('list');//get html div
+  List.innerHTML = '';//!erase page
+  cur.forEach((i) => {
+  let element = document.createElement('div');//!create a div for each entry
+  if (i.isEditing === true) {//! render 2 input boxes n 1 button if edit clicked
+            const textbox = document.createElement('input');
+            textbox.type = 'text';
+            textbox.id = 'edit-title-' + i.id;
+            element.appendChild(textbox);
+
+            const datePicker = document.createElement('input');
+            datePicker.type = 'date';
+            datePicker.id = 'edit-date-' + i.id;
+            element.appendChild(datePicker);
+
+            const updateButton = document.createElement('button');
+            updateButton.innerText = 'Update';
+            updateButton.dataset.todoId = i.id;
+            updateButton.onclick = onUpdate;
+            element.appendChild(updateButton);}
+  else{                     //! render entry + edit n dele buttons if edit not clicked
+          element.innerText = i.title + ' ' + i.dueDate;
+          const editButton = document.createElement('button');
+            editButton.innerText = 'Edit';
+            editButton.style = 'margin-left: 12px';
+            editButton.onclick = onEdit;
+            editButton.dataset.todoId = i.id;
+            element.appendChild(editButton);
+          let deleteButton = document.createElement('button');//!create a button
+          deleteButton.innerText = 'Delete';
+          deleteButton.style = 'margin-left: 12px';
+          deleteButton.onclick = delet;//!not delet() because not clicked yet
+          deleteButton.id = i.id;//!careful! id becomes a number bc id attribute is alweays a string
+          element.appendChild(deleteButton)//put button inside div
+           };
+        List.appendChild(element);}//!  put everything in div inside list
+        )}
+render();//! this is put last bc arrow function expression cant be hooked
+    </script>
+  </body>
+</html>

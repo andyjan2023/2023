@@ -1,0 +1,66 @@
+<!-- classlist/ contains /add /remove /toggle 
+  rem= 16px
+height:0;
+  overflow:hidden;-->
+
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+  
+    <style>
+      :root{
+    --transition: all 0.3s linear;
+    --color1:red;
+  }
+  
+    body {
+        background-color: rgb(119, 212, 212);}
+  li{list-style-type: none;background-color: rgb(148, 127, 255);}
+  .links{height:0;
+    overflow:hidden;
+  transition: var(--transition);}
+  .show-links{
+    height:10rem;
+    
+  }
+      
+  
+    </style>
+    <title>jjument</title>
+  </head>
+  
+  <body>
+    <nav>
+      <div class="nav-cent">
+        <div class="nav-header">
+        <button class="nav-toggle">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+      <ul class="links">
+        <li> <a href="https://www.twitter.com">twitter</a></li>
+        <li> <a href="https://www.twitter.com">twitter</a></li>
+        <li> <a href="https://www.twitter.com">twitter</a></li>
+      </ul>
+      </div>
+    </nav>
+  
+  
+    <script>
+    const togglee=document.querySelector('.nav-toggle')
+  const links=document.querySelector('.links');
+  
+  togglee.addEventListener('click',function(){
+  console.log(links.classList.contains('links'));
+  // if(links.classList.contains('show-links')){
+  //   links.classList.remove('show-links');
+  links.classList.toggle('show-links')
+  }) 
+  
+    </script>
+  
+  </body>
+  
+  </html>

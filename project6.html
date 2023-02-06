@@ -1,0 +1,82 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="project1.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" async></script>
+    <style>
+   body {
+        background-color: rgb(130, 185, 185);}
+        .modaloverlay{
+  position:fixed;
+  top:0;
+  left:0;
+  background:white;
+  display:grid;
+  visibility: hidden;
+  z-index: -10;
+
+}
+.open{
+  visibility: visible;
+  z-index: 10;
+}
+    </style>
+    <title>proj6</title>
+  </head>
+
+      <h1>modal project</h1>
+      <button class="btn modalbtn">open model</button>
+  
+  <div class="modaloverlay">
+    <div class="modalContain">
+      <h3>content</h3>
+      <button class="closebtn"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+  
+  <body>
+  
+    <script>
+    const modalbtn=document.querySelector('.modalbtn');
+const modal=document.querySelector('.modaloverlay')
+const closebtn=document.querySelector('.closebtn')
+
+modalbtn.addEventListener('click',function(){modal.classList.add('open')})
+closebtn.addEventListener('click',function(){modal.classList.remove('open')})
+
+
+const createPolicy=(name, amount)=>{
+  return{
+type:'CREATE POLICY',
+payload: {name: name, 
+          amount: amount}
+  }
+}
+
+
+
+
+
+
+
+    </script>
+<button>Me!</button>
+
+
+
+    <script src="aug26Algo.js"></script>
+   
+    
+
+
+
+
+
+  </body>
+  
+  </html>
+
+
+
